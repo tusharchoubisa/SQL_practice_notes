@@ -1,17 +1,17 @@
-~aad data into table
-Insert into employes (id , employe_name , email , city , salary ) values (1,'miheer','miheer123@gmail.com','vadodara',45000),(2,'ritik','ritik123@gmaik.com','jodhpur',30000),(3,'parth','parth123@gmaik.com','hydeabed',25000),(4,'tushar','tushar123@gmaik.com','Ahemdaad',50000),
-(5,'pratik','pratik123@gmaik.com','udaipur',30000);
+16) insert into table_name values(value1, value2, value3, value4); 
+(It is used to insert the data in a table)
+For multiple inputs :- 
+         insert into students values(2,'Vijay',21,76,'Delhi'), (3, 'Raj',21,75,'Jaipur');
 
-~ to see table :
-select * from employes;
+One more way to do :-
+   insert into students(student_id, student_name, age, marks,city) values(4,'Vyom',21,86,'Ahmedabad');
 
-~to update your table values :
-update employes set city = 'delhi' where id = 3 ;
-select * from employes ;
-SET SQL_SAFE_UPDATES = 0;
 
-~ to delete the column in your table :
-delete from employes where id = 5;
+17) update table_name set column_name =  values where condition; 
+(It is used to update the table, used to update the data in the table)
 
-~ to delete your table :
-   drop table employes;
+for multiple columns:-
+   update students set city='Udaipur',age=24 where student_id=2;
+
+18) delete from table_name where condition;
+
