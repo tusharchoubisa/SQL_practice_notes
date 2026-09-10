@@ -1,0 +1,59 @@
+# 1.)  Arthematic aperators add(+), sub(-) , multi(*) and divide(/) :
+select employe_name , salary , salary +5000 from employes ;select employe_name , salary , salary - 5000 from employes ;
+select employe_name , salary , salary * 12 from employes ;
+select employe_name , salary , salary * 12 as m_salary , (salary*12)/12 as m_salary from employes ;
+
+# 2.) Comparison Operators (=) (!=) (< >) (<= >=)  and finding even and odd  :
+select salary , employe_name from employes where salary = 45000 ; 
+select salary , employe_name from employes where salary != 45000 ; 
+select employe_name, salary from employes where salary > 60000;
+select employe_name, salary from employes where salary < 60000;
+select employe_name, salary from employes where salary >= 70000;
+select employe_name, salary from employes where salary >= 70000;
+select id , employe_name from employes where id % 2  = 0 ;
+
+# 3.) Logical Operators ( AND , OR and NOT ) : 
+ 
+# i) AND Operators  ( when both condition we need in output ) :
+ select employe_name, city , salary  from employes where salary > 50000 And city = 'Surat' ;
+  
+# ii) OR Operators ( where at least one conditin is ture ) :
+  select employe_name , city from employes where city = 'Ahmedabad' or city = 'Surat' ;
+
+# iii) NOT Operators ( employe jiski city ahemedabad nhi he vo list  ): 
+select employe_name , city  from employes where NOT city = 'Ahmedabad' ;
+
+# 3.) Special Operators ( BETWEEN , IN , NOT IN , NULL , NOT NULL and LIKE ):
+
+# i.) BETWEEN ( Checks whether a value is within a range.) 
+SELECT employe_name , salary  FROM employes WHERE salary BETWEEN 30000 AND 50000 ;
+
+# ii.) IN (jinki city delhi , suart or mumbai  hei.):
+select employe_name , city from employes where city in ('Delhi' , 'Surat' , 'Mumbai' ); 
+
+#iii.) NOT IN Operators (jinki city delhi , suart or mumbai nhi hei ) 
+select employe_name , city from employes where city not in  ('Delhi' , 'Surat' , 'Mumbai' , 'Pune' ); 
+
+# iv.)  LIKE (Used for pattern matching.)
+
+#(employe jinka name t se chalu hota he )
+SELECT employe_name  FROM employes WHERE employe_name LIKE 'R%'; 
+
+#( employe jiska name A se khatam hota ho ) :
+SELECT  employe_name  FROM employes WHERE employe_name LIKE '%a';
+
+# ( employe jinke name ke bich e Sh aata ho)
+SELECT employe_name  FROM employes WHERE employe_name LIKE '%sh%'; 	
+
+# ( __ repersents one charater ) 
+SELECT employe_name  FROM employes WHERE employe_name LIKE '__'; 
+
+# V.) NULL and NOT NULL Operatora ( null means missing/unknown value)n 
+ 
+ # NULL ( employe kinki city null ho) 
+ SELECT employe_name , city  FROM employes WHERE city IS NULL; 
+ 
+  # NOT  NULL ( employe kinki city null nhi ho) 
+ SELECT employe_name , city  FROM employes WHERE city IS not  NULL; 
+ 
+SELECT employe_name , salary , city  FROM employes WHERE (city = 'Delhi' OR city = 'Mumbai') AND salary > 30000;
