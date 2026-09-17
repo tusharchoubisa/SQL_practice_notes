@@ -1,0 +1,57 @@
+
+                      #  JOIN IN MYSQL  # 
+                      
+# JOIN : Join is used to combine rows from two or more tables , based on a related column between them . 
+
+# Types of JOINS : 
+
+#1.) INNER JOIN : return resources that have matching values in both tables . 
+ SELECT c.client_name, w.project_name, w.tool_used, w.cost
+FROM clients c
+INNER JOIN web_projects w
+ON c.client_id = w.client_id;
+
+#2.) LEFT JOIN : Return all record from left table , and the matched record from right table 
+SELECT c.client_name, w.project_name, w.cost
+FROM clients c
+LEFT JOIN web_projects w
+ON c.client_id = w.client_id ;
+
+#LEFT JOIN + WHERE NULL:
+SELECT c.client_id, c.client_name
+FROM clients c
+LEFT JOIN web_projects w
+ON c.client_id = w.client_id
+WHERE w.project_id IS NULL;
+
+#3.) RIGHT JOIN : Return all the rows from right table and matching data from left table ; 
+SELECT c.client_name, w.project_name, w.client_id
+FROM clients c	
+RIGHT JOIN web_projects w
+ON c.client_id = w.client_id;
+
+#RIGHT JOIN + WHERE NULL :
+SELECT w.project_id, w.project_name, w.client_id
+FROM clients c
+RIGHT JOIN web_projects w
+ON c.client_id = w.client_id
+WHERE c.client_id IS NULL;
+
+#.4) UNION JOIN (FULL OUTER JOIN) : This gives you both matched and unmatched records. 
+# MySQL does not directly support FULL OUTER JOIN, so we can simulate it using LEFT JOIN + UNION + RIGHT JOIN.
+
+SELECT c.client_name, w.project_name, c.client_id AS client_id, w.client_id AS project_client_id
+FROM clients c
+LEFT JOIN web_projects w
+ON c.client_id = w.client_id
+UNION
+SELECT c.client_name, w.project_name, c.client_id AS client_id, w.client_id AS project_client_id
+FROM clients c
+RIGHT JOIN web_projects w
+ON c.client_id = w.client_id;
+
+# SELF JOIN  : Self join is a join which a table is join with  itself to compare or stables 
+   # a relationship between row of the same table :            
+   select e1.emp_name as employe ,
+          e2.emp_name as manager 
+          from staff e1 join staff e2 on e1.manager_id = e2.emp_id ; 
