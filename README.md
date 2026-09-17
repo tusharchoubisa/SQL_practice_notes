@@ -39,11 +39,11 @@ MySQL
 | `02_Insert_Update_Delete.sql` | Insert, update and delete data |
 | `03_Operators.sql` | Arithmetic and comparison operators |
 | `04_Select_Queries.sql` | SELECT and WHERE queries |
-|  05_All_Operators_sql |
-|  06_string_numeric_dete_function.sql|
-|  07_Aggreate_function_MySQL|
-|  08_Joins_in_mysql|
-|  09_Self_join_Questionset_mysql|
+|  05_All_Operators_sql | +,-,*,/,=,!=,<,>,in,not in, AND...etc | 
+|  06_string_numeric_dete_function.sql| lower,upper,length |
+|  07_Aggreate_function_MySQL| COUNT,SUM,AVG,MIN,MAX...|
+|  08_Joins_in_mysql| Inner,Right,Left,Union,self,cross |
+|  09_Self_join_Questionset_mysql| practice questionn |
 
 ## 🎯 Goal
 
