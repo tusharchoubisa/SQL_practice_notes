@@ -1,0 +1,104 @@
+#   SQL Aggregate Functions 
+
+# COUNT(), SUM(), AVG(), MIN(), MAX() : 
+
+#1) Count : to count the tetal itemns in the table 
+select count (student) as total_student from employes ; 
+
+#2) Sum : to find the total od number from the table 
+select sum(salary) as total_salsry from employes ;
+
+#3)  Avg : to find the Average of marks from student table 
+select avg(marks) as total_avg from students ;
+
+#4) Min : To find the minimun from marks from student table 
+select min(marks) as min_marks from student ;
+
+#5) Max : To find the Maximun marks from the table of student 
+select max(marks) as max_marks from students; 
+
+#_________________________________________________________________________________________________________________________________________
+                Some Practice Qestion In Aggreate Function : 
+show databases; 
+create database aggreate_function ;
+use aggreate_function;
+show tables;
+
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    department VARCHAR(50),
+    salary DECIMAL(10,2),
+    joining_date DATE
+);
+desc employees;
+
+INSERT INTO employees
+(emp_id, first_name, department, salary, joining_date)
+VALUES
+(101, 'Rahul', 'IT', 40000, '2022-01-15'),
+(102, 'Priya', 'HR', 50000, '2021-06-20'),
+(103, 'Amit', 'IT', 60000, '2023-03-10'),
+(104, 'Neha', 'Sales', 45000, '2020-11-05'),
+(105, 'Rohit', 'HR', 55000, '2024-02-18'),
+(106, 'Anjali', 'IT', 70000, '2022-08-12'),
+(107, 'Karan', 'Sales', 48000, '2023-05-25'),
+(108, 'Pooja', 'HR', 62000, '2021-12-10');
+ select * from employees;
+ 
+ # SQL Aggregate Functions — Question Set :
+ 
+# Level 1 — Basic :- 
+#Q1. Employees table mein total employees count karo
+ select count(first_name) as total_employees from employees ;
+#Q2. emp_id ko use karke total employees count karo.
+select count(emp_id) as total_employees from employees;
+#Q3. salary column mein kitni non-NULL values hain, count karo.
+select count(salary) as salary_count from employees ;
+#Q4. Sabhi employees ki total salary calculate karo.
+select sum(salary) as total_salary from employees ;
+#Q5. IT department ke employees ki total salary calculate karo.
+select sum(salary) as IT_total from employees where department = 'IT';
+#Q6. Company ki average salary find karo.
+select avg(salary) as avg_salary from employees;
+#Q7. HR department ki average salary find karo.
+select avg(salary) as avg_salary from employees where department = 'hr';
+#Q8. Company mein minimum salary find karo.
+select min(salary) as min_salary from employees;
+#Q9. IT department mein minimum salary find karo.
+select min(salary) as min_salary from employees where department = 'it';
+#Q10. Company mein maximum salary find karo.
+select max(salary) as max_salary from employees;
+#Q11. Sales department mein maximum salary find karo
+select max(salary) as max_salary from employees where department = 'sales';
+
+#Level 2 — GROUP BY : 
+#Q12. Har department mein total employees count karo.
+select department , count(department) from employees group by department;
+#Q13. Har department ki total salary find karo.
+select department , sum(salary) as total_salary  from employees group by department;
+#Q14. Har department ki average salary find karo.
+select department , avg(salary) as avg_salary  from employees group by department;
+#15. Har department ki minimum salary find karo.
+select department , min(salary) as min_salary  from employees group by department;
+#Q16. Har department ki maximum salary find karo.
+select department , max(salary) as max_salary  from employees group by department;
+#Q17. Har department ke liye department, total_employees, total_salary, average_salary, minimum_salary aur
+#maximum_salary ek saath display karo.
+select department , count(first_name) as total_employes , sum(salary) as total_salary , avg(salary) as avg_salary, min(salary) as min_salary ,
+max(salary) as max_salary from employees group by department ;
+
+#Level 3 — Medium :
+
+#Q18. Har department mein employees ki counting karo aur result ko total_employees naam do.
+select department , count(first_name) as total_employees from employees group by department ;
+#Q19. Department-wise average salary ko average_salary alias do
+select department , avg(salary) as average_salary from employees group by department ;
+#Q20. Department-wise total salary ko total_salary alias do.
+select department , sum(salary) as total_salary from employees group by department ;
+#Q21. Har department ki minimum aur maximum salary ek saath display karo.
+select department , max(salary) as max_salary from employees group by department ;
+#Q22. Har department mein kitne employees hain aur unki average salary kya hai?
+select department , count(first_name) as total_employees , avg(salary) as avg_salary from employees group by department ;
+#23. Har department ki total salary aur average salary dono display karo.
+select department , sum(salary) as totak_salary , avg(salary) as avg_salary from employees group by department;
