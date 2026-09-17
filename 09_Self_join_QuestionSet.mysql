@@ -1,0 +1,140 @@
+show databases ;
+use demodb;
+show tables ;
+drop table employees_self;
+show tables;
+CREATE TABLE staff (
+ emp_id INTEGER PRIMARY KEY,
+ emp_name TEXT,
+ job_title TEXT,
+ department TEXT,
+ salary DECIMAL(10,2),
+ hire_date DATE,
+ manager_id INTEGER
+);
+
+INSERT INTO staff (emp_id, emp_name, job_title, department, salary, hire_date,
+manager_id) VALUES
+(1, 'Arthur Pendragon', 'CEO', 'Executive', 250000.00, '2020-01-15', NULL),
+(2, 'Merlin Wyllt', 'CTO', 'Engineering', 200000.00, '2020-02-01', 1),
+(3, 'Guinevere Royal', 'CMO', 'Marketing', 190000.00, '2020-03-15', 1),
+(4, 'Lancelot Du Lac', 'VP of Sales', 'Sales', 185000.00, '2020-04-10', 1),
+(5, 'Gawain Orkney', 'Lead Engineer', 'Engineering', 150000.00, '2021-01-20', 2),
+(6, 'Percival Grail', 'Lead Engineer', 'Engineering', 145000.00, '2021-02-15', 2),
+(7, 'Morgan Le Fay', 'Marketing Director', 'Marketing', 140000.00, '2021-03-10', 3),
+(8, 'Galahad Pure', 'Sales Manager', 'Sales', 130000.00, '2021-04-05', 4),
+(9, 'Tristan Lyonesse', 'Software Engineer', 'Engineering', 110000.00, '2022-01-15',5),
+(10, 'Isolde Fair', 'Software Engineer', 'Engineering', 115000.00, '2022-02-01', 5),
+(11, 'Bors de Ganis', 'Software Engineer', 'Engineering', 160000.00, '2022-03-20',6),
+(12, 'Gareth Beam', 'Data Analyst', 'Engineering', 95000.00, '2022-04-10', 6),
+(13, 'Bedivere Trust', 'Marketing Specialist', 'Marketing', 85000.00, '2022-05-05',7),
+(14, 'Kay Seneschal', 'Marketing Specialist', 'Marketing', 85000.00, '2022-06-15',7),
+(15, 'Lamorak Strong', 'Sales Rep', 'Sales', 75000.00, '2023-01-10', 8),
+(16, 'Gaheris Swift', 'Sales Rep', 'Sales', 72000.00, '2023-02-20', 8),
+(17, 'Palamedes Saracen', 'Sales Rep', 'Sales', 78000.00, '2023-03-15', 8),
+(18, 'Dinadan Wit', 'HR Manager', 'Human Resources', 110000.00, '2021-08-01', 1),
+(19, 'Ector Foster', 'HR Coordinator', 'Human Resources', 65000.00, '2023-05-10', 18),
+(20, 'Mordred Traitor', 'Intern', 'Executive', 45000.00, '2022-04-10', 1);
+
+select * from staff;
+
+#1. List the names of all employees alongside the exact names of their direct managers.
+select e1.emp_name as employe_name , e2.emp_name as manager_name from staff e1 join staff e2 on e1.manager_id = e2.emp_id ;
+
+#2. Identify any employees who earn a higher salary than their direct manager. Display the
+#employee name, their salary, their manager's name, and the manager's salary.
+select e1.emp_name as employe_name , e1.salary as emp_salary ,
+        e2.emp_name as manager_name , e2.salary as manager_salary
+        from staff  e1 join staff e2 on e1.manager_id = e2.emp_id 
+        where e1.salary > e2.salary ;
+        
+#3. Find all employees who were hired BEFORE their direct manager. Show the employee's name,
+#hire date, and their manager's name and hire date.        
+select e1.emp_name as employe_name , e1.hire_date as emp_hiredate,
+	   e2.emp_name as manager_name , e2.hire_date as manager_hiredate 
+       from staff e1 join staff e2 on e1.manager_id = e2.emp_id 
+       where e1.hire_date < e2.hire_date ;
+       
+#4. List employees who work in a different department than their direct manager.
+ select * from staff;
+ select e1.emp_name as employe_name , e1.department as employe_department ,
+		e2.emp_name as manager_name , e2.department as  manager_departnemt 
+        from staff e1 join staff e2 on e1.manager_id = e2.emp_id 
+        where e1.department != e2.department ;
+        
+#5. Using a SELF JOIN, find pairs of employees who work in the exact same department. Display
+#the unique pairs (avoiding duplicates like A-B and B-A).
+select e1.emp_name as Empoye1 , 
+       e2.emp_name as Employe2 ,
+       e1.department as Department 
+       from staff e1 join staff e2 on e1.department = e2.department
+       where e1.emp_id < e2.emp_id ;
+
+#6. Using a SELF JOIN, find any employees who share the exact same salary as another
+#employee. Display both names and the shared salary.
+select e1.emp_name as Empoye1 , 
+       e2.emp_name as Employe2 ,
+       e1.salary as Emp_salary
+       from staff e1 join staff e2 on e1.salary = e2.salary 
+       where e1.emp_id < e2.emp_id ;
+       
+#7. Count how many direct reports each manager has. Display the manager's name and the count
+#of their direct reports.
+SELECT e1.emp_name AS manager_name,
+    COUNT(e2.emp_id) AS direct_reports
+    FROM staff e1
+    JOIN staff e2
+    ON e1.emp_id = e2.manager_id
+    GROUP BY e1.emp_id, e1.emp_name;    
+    
+#8. Calculate the total salary expense of all direct reports under each manager. Display the
+#manager's name and the total salary expense.
+SELECT e1.emp_name AS manager_name,
+    sum(e2.salary) AS salary
+    FROM staff e1
+    JOIN staff e2
+    ON e1.emp_id = e2.manager_id
+    GROUP BY e1.salary , e1.emp_name; 
+    
+#9. Calculate the average salary of the direct reports for each manager.    
+SELECT e1.emp_name AS manager_name,
+    avg(e2.salary) AS salary
+    FROM staff e1
+    JOIN staff e2
+    ON e1.emp_id = e2.manager_id
+    GROUP BY e1.salary , e1.emp_name;     
+
+#10. Find managers whose own personal salary is LESS than the average salary of their direct reports.
+SELECT e1.emp_name AS manager_name,
+    avg(e2.salary) AS avg_salary
+    FROM staff e1
+    JOIN staff e2
+    ON e1.emp_id = e2.manager_id  
+    GROUP BY e1.salary , e1.emp_name 
+	HAVING e1.salary <  avg(e2.salary) ;  
+
+#12. List the 3-level hierarchy path for employees: Employee Name, Manager Name, and GrandManager Name (Manager's Manager).
+select * from staff;
+use demodb;  
+select e1.emp_name as employe_name ,
+	   e2.emp_name as manager_name ,
+       e3.emp_name as grand_manager 
+       from  staff e1 join staff e2 on e1.manager_id = e2.emp_id 
+       join staff e3 on e1.manager_id = e3.emp_id; 
+
+#13. Calculate the salary difference between each employee and their direct manager.
+ select e1.emp_name as employe_name ,
+		e1.salary as employe_salary ,
+        e2.emp_name as manager_name ,
+        e2.salary as manager_salry ,
+        e1.salary - e2.salary as differnce_salary 
+        from staff e1 join staff e2 on e1.manager_id = e2.emp_id ;
+        
+#15. Using a SELF JOIN, find the employees hired on the exact same date. Display both names
+#and the hire date.       
+select * from staff;
+select e1.emp_name as employe_name1 , 
+	   e2.emp_name as employe_name2 , 
+       e1.hire_date as both_hiredate 
+       from staff e1 join staff e2 on e1.hire_date = e2.hire_date 
+       and e1.emp_id < e2.emp_id ;
