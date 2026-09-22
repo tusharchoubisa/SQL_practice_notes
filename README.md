@@ -44,7 +44,8 @@ MySQL
 |  07_Aggreate_function_MySQL| COUNT,SUM,AVG,MIN,MAX...|
 |  08_Joins_in_mysql| Inner,Right,Left,Union,self,cross |
 |  09_Self_join_Questionset_mysql| practice questionn |
-
+|  10_cross_multiple_join.sql | cross,multiple join|
+| 11_all_joinPractice_question.sql | practice |
 ## 🎯 Goal
 
 The goal of this repository is to practice SQL regularly and keep my queries organized for future revision.
