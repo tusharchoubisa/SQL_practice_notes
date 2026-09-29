@@ -46,6 +46,7 @@ MySQL
 |  09_Self_join_Questionset_mysql| practice questionn |
 |  10_cross_multiple_join.sql | cross,multiple join|
 | 11_all_joinPractice_question.sql | practice |
+| 12_Subquiery.SQL | Scaler, MUltirow,form,select..etc|
 ## 🎯 Goal
 
 The goal of this repository is to practice SQL regularly and keep my queries organized for future revision.
@@ -67,7 +68,7 @@ The goal of this repository is to practice SQL regularly and keep my queries org
 - [x] HAVING
 - [x] ORDER BY
 - [x] JOIN
-- [ ] Subqueries
+- [x] Subqueries
 - [ ] Constraints
 - [ ] Views
 - [ ] Stored Procedures
